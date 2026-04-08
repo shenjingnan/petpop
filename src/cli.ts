@@ -10,7 +10,7 @@ import type { PetId } from './pet/types';
 
 const AVAILABLE_IDS: ReadonlySet<string> = new Set(getAvailablePetIds());
 
-function printHelp(): void {
+export function printHelp(): void {
   console.log(`
 petpop - 电子宠物 ASCII Art
 
@@ -26,11 +26,11 @@ petpop - 电子宠物 ASCII Art
 `);
 }
 
-function printVersion(): void {
+export function printVersion(): void {
   console.log('petpop v0.3.0');
 }
 
-function showPet(id: string): void {
+export function showPet(id: string): void {
   if (!AVAILABLE_IDS.has(id)) {
     console.error(`未知宠物 ID: "${id}"`);
     console.error(`可用的 ID: ${getAvailablePetIds().join(', ')}`);
@@ -42,7 +42,7 @@ function showPet(id: string): void {
   }
 }
 
-function main(): void {
+export function main(): void {
   const args = process.argv.slice(2);
 
   if (args.length === 0) {
@@ -99,4 +99,6 @@ function main(): void {
   }
 }
 
-main();
+if (process.argv[1]?.endsWith('cli.js')) {
+  main();
+}

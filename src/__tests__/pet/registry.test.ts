@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import {
   getAllPets,
   getAvailablePetIds,
@@ -75,6 +75,11 @@ describe('宠物注册表', () => {
         expect(pet?.id).toBe(id);
       }
     });
+
+    it('传入无效 ID 应返回 undefined', () => {
+      const result = getPetById('invalid' as PetId);
+      expect(result).toBeUndefined();
+    });
   });
 
   describe('getRandomPet', () => {
@@ -92,6 +97,12 @@ describe('宠物注册表', () => {
         const pet = getRandomPet();
         expect(allPets.some((p) => p.id === pet.id)).toBe(true);
       }
+    });
+
+    it('当随机索引越界时应抛出错误', () => {
+      vi.spyOn(Math, 'random').mockReturnValue(999);
+      expect(() => getRandomPet()).toThrow('No pets available');
+      vi.restoreAllMocks();
     });
   });
 });

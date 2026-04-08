@@ -81,6 +81,38 @@ describe('renderPet', () => {
       expect(line).toMatch(/^│.*│$/);
     }
   });
+
+  it('带边框时应正确对齐 CJK 字符的 art 行', () => {
+    const cjkPet: Pet = {
+      id: 'cat',
+      name: '测试猫',
+      description: '中文字符',
+      art: ['你好世界', 'hello'],
+    };
+    const result = renderPet(cjkPet, { border: true });
+    const borderLines = result.split('\n').filter((l) => l.startsWith('│'));
+    expect(borderLines).toHaveLength(2);
+    // CJK 行 "你好世界" 占 8 可见宽度，"hello" 占 5 可见宽度
+    // 所有带边框行的可见宽度应一致
+    const widths = borderLines.map((l) => {
+      const content = l.slice(1, -1);
+      let w = 0;
+      for (const ch of content) {
+        const code = ch.codePointAt(0) ?? 0;
+        if (
+          (code >= 0x4e00 && code <= 0x9fff) ||
+          (code >= 0x3000 && code <= 0x303f) ||
+          (code >= 0xff00 && code <= 0xffef)
+        ) {
+          w += 2;
+        } else {
+          w += 1;
+        }
+      }
+      return w;
+    });
+    expect(widths[0]).toBe(widths[1]);
+  });
 });
 
 describe('listPets', () => {

@@ -25,6 +25,7 @@ export default defineConfig({
         '**/*.config.*',
         '**/__tests__/**',
         'examples/**',
+        'src/pet/types.ts',
       ],
       thresholds: {
         lines: 80,

@@ -5,6 +5,10 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "petpop": "./dist/cli.js",
+    "pet": "./dist/cli.js"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",

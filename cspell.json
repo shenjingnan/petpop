@@ -17,7 +17,11 @@
     "autorelease",
     "dependabot",
     "shenjingnan",
-    "rankdir"
+    "rankdir",
+    "petpop",
+    "mochi",
+    "nemo",
+    "hedwig"
   ],
   "ignorePaths": [
     "node_modules",

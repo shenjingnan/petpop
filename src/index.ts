@@ -8,6 +8,13 @@ declare const __VERSION__: string;
 /** 当前库的版本号 */
 export const VERSION: string = __VERSION__;
 
+import * as _Pet from './pet/index';
+
+/** 宠物命名空间 */
+export const Pet = _Pet;
+
+export type PetNamespace = typeof _Pet;
+
 /**
  * 配置选项
  */
@@ -72,4 +79,5 @@ export default {
   greet,
   createConfig,
   VERSION,
+  Pet,
 };
